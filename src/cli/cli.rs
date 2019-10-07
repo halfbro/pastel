@@ -1,10 +1,11 @@
 use clap::{crate_description, crate_name, crate_version, App, AppSettings, Arg, SubCommand};
 
-// pastel_exe is a feature set by build.rs and it's used to avoid the module machinery which
-// doesn't work at build time. Just assume that build.rs is a good friend and that it includes
-// `colorpicker_tools.rs` so that `COLOR_PICKER_TOOLS` are properly defined.
-#[cfg(pastel_exe)]
-use crate::colorpicker_tools::COLOR_PICKER_TOOLS;
+// Use include!(…) instead of `use` in order to make this work at build-time.
+mod colorpicker_tools {
+    include!("colorpicker_tools.rs");
+}
+
+use colorpicker_tools::COLOR_PICKER_TOOLS;
 
 const SORT_OPTIONS: &[&'static str] = &["brightness", "luminance", "hue", "chroma", "random"];
 const DEFAULT_SORT_ORDER: &'static str = "hue";

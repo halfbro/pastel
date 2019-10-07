@@ -1,7 +1,6 @@
 use clap::Shell;
 use std::fs;
 
-include!("src/cli/colorpicker_tools.rs");
 include!("src/cli/cli.rs");
 
 fn main() {
@@ -17,6 +16,4 @@ fn main() {
     app.gen_completions("pastel", Shell::Fish, &outdir);
     app.gen_completions("pastel", Shell::Zsh, &outdir);
     app.gen_completions("pastel", Shell::PowerShell, &outdir);
-
-    println!("cargo:rustc-cfg=pastel_exe");
 }
